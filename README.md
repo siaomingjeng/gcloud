@@ -148,7 +148,7 @@ EOF
 kubectl apply -f https://raw.githubusercontent.com/open-policy-agent/gatekeeper/release-3.3/deploy/gatekeeper.yaml
 kubectl -n gatekeeper-system describe svc gatekeeper-webhook-service
 
-cat>gatekeeper.yml<<EOF
+cat>policies.yml<<EOF
 apiVersion: templates.gatekeeper.sh/v1beta1
 kind: ConstraintTemplate
 metadata:

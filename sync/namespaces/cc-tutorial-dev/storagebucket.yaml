@@ -3,7 +3,7 @@ kind: StorageBucket
 metadata:
   annotations:
     cnrm.cloud.google.com/force-destroy: "false"
-  name: cc-tutorial-bucket-dev
+  name: cc-tutorial-bucket-dev-alskjdfkhsadkfjhsafjl
 spec:
   bucketPolicyOnly: true
   lifecycleRule:

@@ -3,5 +3,6 @@ kind: PubSubTopic
 metadata:
   labels:
     env: prod
-    location: australia-southeast1
+    location: us-east4
+    owner: john-doe
   name: pubsubtopic-sample

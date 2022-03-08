@@ -1,0 +1,42 @@
+apiVersion: templates.gatekeeper.sh/v1beta1
+kind: ConstraintTemplate
+metadata:
+  name: pubsubrequiredlabels
+spec:
+  crd:
+    spec:
+      names:
+        kind: PubSubRequiredLabels
+      validation:
+        openAPIV3Schema:
+          properties:
+            labels:
+              type: array
+              items: 
+                type: string
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package pubsubrequiredlabels
+
+        violation[{"msg": msg, "details": {"missing_labels": missing}}] {
+          provided := {label | input.review.object.metadata.labels[label]}
+          required := {label | label := input.parameters.labels[_]}
+          apiVersion := input.review.object.apiVersion
+          isKccType := contains(apiVersion, "cnrm.cloud.google.com")
+          missing := required - provided
+          isKccType; count(missing) > 0
+          msg := sprintf("you must provide labels: %v", [missing])
+        }
+---
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: PubSubRequiredLabels
+metadata:
+  name: must-contains-labels
+spec:
+  match:
+    kinds:
+    - apiGroups: ["pubsub.cnrm.cloud.google.com"]
+      kinds: ["PubSubTopic"]
+  parameters:
+    labels: ["env", "owner", "location"]

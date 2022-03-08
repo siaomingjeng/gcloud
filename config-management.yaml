@@ -1,0 +1,11 @@
+apiVersion: configmanagement.gke.io/v1
+kind: ConfigManagement
+metadata:
+  name: config-management
+spec:
+  clusterName: cc-host-cluster
+  git:
+    syncRepo: git@github.com:siaomingjeng/gcloud.git
+    syncBranch: main
+    secretType: ssh
+    policyDir: sync

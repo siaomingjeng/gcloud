@@ -3,5 +3,5 @@ kind: PubSubTopic
 metadata:
   labels:
     env: prod
-    location: us-east4
+    location: australia-southeast1
   name: pubsubtopic-sample
